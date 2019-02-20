@@ -17,7 +17,10 @@ $converted = floatval($amount) * floatval($conv[$targ]);
 $round = isset($_GET['round']);
 
 if($round){
-    $converted = intval($converted).'.00';
+    $converted = round($converted, 0).'.00';
+}
+else {
+    $converted = round($converted, 2);
 }
 
 //dump(isset($_GET['round']));
