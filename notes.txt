@@ -30,3 +30,44 @@ Code to be used in values.php to hit web service
 //}
 ////dump(json_decode($meta_data));
 //die();
+
+
+
+
+
+
+
+
+
+session_start();
+if(isset($_SESSION['results'])){
+    $curr = $_SESSION['results']['curr'];
+    $targ = $_SESSION['results']['targ'];
+    $amount = $_SESSION['results']['amount'];
+    $converted = $_SESSION['results']['converted'];
+    $round = $_SESSION['results']['round'];
+    $_SESSION['results'] = null;
+}
+else {
+    $amount = 0;
+    $curr = 'USD';
+    $targ = 0;
+}
+
+dump(isset($_SESSION['timeValue']));
+dump(isset($conversions));
+
+if(isset($_SESSION['timeValue'])) {
+    $timeValue = $_SESSION['timeValue'][0];
+    if(!isset($conversions)){
+        $conversions = createConversions(array_keys($currency_list));
+    }
+
+    dump('Time is set already '.$timeValue);
+    dump('conv set is '.isset($conversions));
+}
+else {
+    $timeValue = time();
+    $conversions = createConversions(array_keys($currency_list));
+    dump('Setting time '.$timeValue);
+}
