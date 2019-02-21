@@ -1,44 +1,32 @@
 <?php
-$currency_list = [
-    'USD' => 'Dollar',
-    'MXN' => 'Peso',
-    'GBP' => 'Pound',
-    'RUB' => 'Ruble'
-];
+require 'Converter.php';
 
-function createConversions($keys){
-    $conversions =[];
-    foreach($keys as $key){
-        $join = join(',', $keys);
-        $url = 'https://api.exchangeratesapi.io/latest?base='.$key.'&symbols='.$join;
-        $fp = fopen($url, 'r');
-        $data = json_decode(stream_get_contents($fp));
-        $d = $data->rates;
-        $ar = [];
-        foreach($keys as $k){
-            array_push($ar, $d->$k);
-        }
-        $conversions[$key] = $ar;
-    }
-    return $conversions;
-}
+use kisa7081\Converter;
 
 session_start();
 
-if(isset($_SESSION['results'])){
-    $curr = $_SESSION['results']['curr'];
-    $targ = $_SESSION['results']['targ'];
-    $amount = $_SESSION['results']['amount'];
-    $converted = $_SESSION['results']['converted'];
-    $round = $_SESSION['results']['round'];
-    $timeValue = $_SESSION['results']['timeValue'];
-}
-else {
-    $amount = 0;
-    $curr = 'USD';
-    $targ = 0;
-    $timeValue = time();
-    $conversions = createConversions(array_keys($currency_list));
+if (!isset($_SESSION['converter'])) {
+    $converter = new \kisa7081\Converter();
+    $_SESSION['converter'] = [$converter];
 }
 
-session_unset();
+if (isset($_SESSION['results'])) {
+    $results = $_SESSION['results'];
+    $current = $results['current'];
+    $target = $results['target'];
+    $amount = $results['amount'];
+    $converted = $results['converted'];
+    $round = $results['round'];
+    $timeValue = $results['timeValue'];
+    $converter = $_SESSION['converter'][0];
+    $currency_list = $converter->getCurrencyList();
+    $_SESSION['results'] = null;
+} else {
+    $amount = 0;
+    $current = 'USD';
+    $target = 0;
+    $timeValue = time();
+    $converter = $_SESSION['converter'][0];
+    $currency_list = $converter->getCurrencyList();
+    $conversions = $converter->getConversions();
+}

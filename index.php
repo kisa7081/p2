@@ -26,7 +26,7 @@ require 'values.php';
         <br>
         <?=date('Y/m/d H:I:s',$timeValue)?>
         <br>
-        Reload the page to reload the latest rates.
+        Reload the page to get the latest rates.
     </h2>
     </header>
     <form method='GET' action='convert.php'>
@@ -37,19 +37,20 @@ require 'values.php';
         </label>
 
         <label>Choose currency:
-            <select name='curr' id='curr'>
+            <select name='current' id='current'>
                 <?php foreach ($currency_list as $code => $value): ?>
-                    <option value='<?=$code ?>' <?php if($code == $curr) echo 'selected' ?>><?=$value ?></option>
+                    <option value='<?=$code ?>' <?php if($code == $current) echo 'selected' ?>><?=$value ?></option>
                 <?php endforeach ?>
             </select>
         </label>
         <br>
         <br>
         <label>Choose currency to convert to:
-            <select name='targ' id='targ'>
+            <select name='target' id='target'>
                 <?php $i = 0 ?>
                 <?php foreach ($currency_list as $code => $value): ?>
-                    <option value='<?=$i++ ?>' <?php if($i-1 == $targ) echo 'selected' ?>><?=$value ?></option>
+                    <option value='<?=$i ?>' <?php if($i == $target) echo 'selected' ?>><?=$value ?></option>
+                    <?php $i++ ?>
                 <?php endforeach ?>
             </select>
         </label>

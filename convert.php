@@ -2,32 +2,24 @@
 require 'helpers.php';
 require 'values.php';
 
+$current = $_GET['current'];
 
-$curr = $_GET['curr'];
-
-$targ = $_GET['targ'];
-
-$conv = $conversions[$curr];
+$target = $_GET['target'];
 
 $amount = $_GET['amount'];
 
-$converted = floatval($amount) * floatval($conv[$targ]);
-
 $round = isset($_GET['round']);
+
+$converter = $_SESSION['converter'][0];
+
+$converted = $converter->convert($amount, $current, $target, $round);
 
 $timeValue = $_GET['timeValue'];
 
-if($round){
-    $converted = round($converted, 0).'.00';
-}
-else {
-    $converted = round($converted, 2);
-}
-
 session_start();
 $_SESSION['results'] = [
-    'curr' => $curr,
-    'targ' => $targ,
+    'current' => $current,
+    'target' => $target,
     'amount' => $amount,
     'converted' => $converted,
     'round' => $round,
