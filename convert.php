@@ -12,9 +12,9 @@ $round = isset($_GET['round']);
 
 $converter = $_SESSION['converter'][0];
 
-$converted = $converter->convert($amount, $current, $target, $round);
-
 $timeValue = $_GET['timeValue'];
+
+$converted = $converter->convert($amount, $current, $target, $round);
 
 session_start();
 $_SESSION['results'] = [

@@ -18,28 +18,28 @@ require 'values.php';
 
 <body>
     <header>
-    <h1>
-        Currency Converter
-    </h1>
-    <h2>
-        Currency conversion rates are current as of:
-        <br>
-        <?=date('Y/m/d H:I:s',$timeValue)?>
-        <br>
-        Reload the page to get the latest rates.
-    </h2>
+        <h1>
+            Currency Converter
+        </h1>
+        <h2>
+            Currency conversion rates are current as of:
+            <br>
+            <?= date('Y/m/d H:I:s', $timeValue) ?>
+            <br>
+            Reload the page to get the latest rates.
+        </h2>
     </header>
     <form method='GET' action='convert.php'>
-        <input type='hidden' name='timeValue' value='<?=$timeValue ?>'>
+        <input type='hidden' name='timeValue' value='<?= $timeValue ?>'>
 
         <label>Enter currency amount:
-            <input type='text' name='amount' id='amount' value='<?=$amount ?>'/>
+            <input type='text' name='amount' id='amount' value='<?= $amount ?>'/>
         </label>
 
         <label>Choose currency:
             <select name='current' id='current'>
                 <?php foreach ($currency_list as $code => $value): ?>
-                    <option value='<?=$code ?>' <?php if($code == $current) echo 'selected' ?>><?=$value ?></option>
+                    <option value='<?= $code ?>' <?php if ($code == $current) echo 'selected' ?>><?= $value ?></option>
                 <?php endforeach ?>
             </select>
         </label>
@@ -49,7 +49,7 @@ require 'values.php';
             <select name='target' id='target'>
                 <?php $i = 0 ?>
                 <?php foreach ($currency_list as $code => $value): ?>
-                    <option value='<?=$i ?>' <?php if($i == $target) echo 'selected' ?>><?=$value ?></option>
+                    <option value='<?= $i ?>' <?php if ($i == $target) echo 'selected' ?>><?= $value ?></option>
                     <?php $i++ ?>
                 <?php endforeach ?>
             </select>
@@ -58,7 +58,10 @@ require 'values.php';
         <br>
         <label>
             Round value to nearest whole number?
-            <input type='checkbox' name='round' id='round' value='true' <?php if(isset($round) and $round) echo 'checked' ?>>
+            <input type='checkbox'
+                   name='round'
+                   id='round'
+                   value='true' <?php if (isset($round) and $round) echo 'checked' ?>>
         </label>
         <br>
         <br>

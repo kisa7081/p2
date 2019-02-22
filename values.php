@@ -6,7 +6,7 @@ use kisa7081\Converter;
 session_start();
 
 if (!isset($_SESSION['converter'])) {
-    $converter = new \kisa7081\Converter();
+    $converter = new kisa7081\Converter();
     $_SESSION['converter'] = [$converter];
 }
 

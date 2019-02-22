@@ -4,7 +4,7 @@ namespace kisa7081;
 
 class Converter
 {
-
+    #Properties
     private $currency_list = [
         'USD' => 'Dollar',
         'MXN' => 'Peso',
@@ -16,6 +16,7 @@ class Converter
 
     private $conversions;
 
+    #Methods
     public function __construct()
     {
         $this->keys = array_keys($this->currency_list);
