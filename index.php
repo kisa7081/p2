@@ -76,7 +76,15 @@ require 'values.php';
         </div>
 
     <?php endif; ?>
-
+    <?php if ($hasErrors) : ?>
+        <div class='alert alert-danger'>
+            <ul>
+                <?php foreach ($errors as $error) : ?>
+                    <li><?= $error ?></li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    <?php endif ?>
 </body>
 
 </html>

@@ -18,6 +18,8 @@ if (isset($_SESSION['results'])) {
     $converted = $results['converted'];
     $round = $results['round'];
     $timeValue = $results['timeValue'];
+    $hasErrors = $results['hasErrors'];
+    $errors = $results['errors'];
     $converter = $_SESSION['converter'][0];
     $currency_list = $converter->getCurrencyList();
     $_SESSION['results'] = null;
@@ -26,6 +28,7 @@ if (isset($_SESSION['results'])) {
     $current = 'USD';
     $target = 0;
     $timeValue = time();
+    $hasErrors = false;
     $converter = $_SESSION['converter'][0];
     $currency_list = $converter->getCurrencyList();
     $conversions = $converter->getConversions();

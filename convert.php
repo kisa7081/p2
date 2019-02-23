@@ -1,20 +1,34 @@
 <?php
 require 'helpers.php';
 require 'values.php';
+require 'Form.php';
 
-$current = $_GET['current'];
+use kisa7081\Form;
 
-$target = $_GET['target'];
+$form = new Form($_GET);
 
-$amount = $_GET['amount'];
+$errors = $form->validate(
+    [
+        'amount' => 'required|numeric|min:0'
 
-$round = isset($_GET['round']);
+    ]);
 
-$converter = $_SESSION['converter'][0];
+$current = $form->get('current');
 
-$timeValue = $_GET['timeValue'];
+$target = $form->get('target');
 
-$converted = $converter->convert($amount, $current, $target, $round);
+$amount = $form->get('amount');
+
+$round = $form->has('round');
+
+$timeValue = $form->get('timeValue');
+
+if (!$form->hasErrors) {
+
+    $converter = $_SESSION['converter'][0];
+
+    $converted = $converter->convert($amount, $current, $target, $round);
+}
 
 session_start();
 $_SESSION['results'] = [
@@ -23,7 +37,9 @@ $_SESSION['results'] = [
     'amount' => $amount,
     'converted' => $converted,
     'round' => $round,
-    'timeValue' => $timeValue
+    'timeValue' => $timeValue,
+    'hasErrors' => $form->hasErrors,
+    'errors' => $errors
 ];
 
 header('Location: index.php');
