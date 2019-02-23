@@ -1,15 +1,18 @@
 <?php
-require 'Converter.php';
+require 'Converter.php'; # The class that does the currency conversions.
 
-use kisa7081\Converter;
+use kisa7081\Converter; # Namespace declaration.
 
-session_start();
+$converter = new Converter();
 
-if (!isset($_SESSION['converter'])) {
-    $converter = new kisa7081\Converter();
-    $_SESSION['converter'] = [$converter];
-}
+session_start(); # Begin the session.
 
+/*
+ * The values from the request are retrieved if
+ * "results" is set.  This means we are coming from the
+ * convert.php page.  If not, initial/default values
+ * get set from the index.php page.
+ */
 if (isset($_SESSION['results'])) {
     $results = $_SESSION['results'];
     $current = $results['current'];
@@ -20,7 +23,6 @@ if (isset($_SESSION['results'])) {
     $timeValue = $results['timeValue'];
     $hasErrors = $results['hasErrors'];
     $errors = $results['errors'];
-    $converter = $_SESSION['converter'][0];
     $currency_list = $converter->getCurrencyList();
     $_SESSION['results'] = null;
 } else {
@@ -29,7 +31,16 @@ if (isset($_SESSION['results'])) {
     $target = 0;
     $timeValue = time();
     $hasErrors = false;
-    $converter = $_SESSION['converter'][0];
+    $converter = new Converter(); # Create Converter instance.
     $currency_list = $converter->getCurrencyList();
-    $conversions = $converter->getConversions();
+
+    /*
+     * The conversions array is cached to
+     * avoid fetching the conversion rates for each
+     * request.  If the conversion rates were hard
+     * coded, the Converter class could just use
+     * the array as a property.
+    */
+    $conversions = $converter->createConversions();
+    $_SESSION['conversions'] = $conversions;
 }

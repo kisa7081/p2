@@ -1,5 +1,5 @@
 <?php
-namespace kisa7081;
+namespace DWA;
 
 class Form
 {
