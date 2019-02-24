@@ -59,7 +59,7 @@ require 'values.php';
             <input type='checkbox'
                    name='round'
                    id='round'
-                   value='true' <?php if ($round) echo 'checked' ?>
+                   value='true' <?php if ($round) echo 'checked' ?>>
         </label>
         <br>
         <br>
