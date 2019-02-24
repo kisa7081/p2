@@ -15,9 +15,9 @@ require 'values.php';
 <body>
 <section id='main'>
     <header>
-        <p id='title'>
+        <h1 id='title'>
             Currency Converter
-        </p>
+        </h1>
         <p id='info'>
             Currency conversion rates are current as of:
             <br>
