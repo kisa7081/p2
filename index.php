@@ -8,26 +8,23 @@ require 'values.php';
 <head>
     <title>Project 2</title>
     <meta charset='utf-8'/>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA"
-          crossorigin="anonymous">
-    <link href='/css/styles.css' rel='stylesheet'>
+    <link href='css/styles.css' rel='stylesheet'>
 
 </head>
 
 <body>
+<section id='main'>
     <header>
-        <h1>
+        <p id='title'>
             Currency Converter
-        </h1>
-        <h2>
+        </p>
+        <p id='info'>
             Currency conversion rates are current as of:
             <br>
-            <?= date('Y/m/d H:I:s', $timeValue) ?>
+            <?= date('Y/m/d H:I:s T', $timeValue) ?>
             <br>
             Reload the page to get the latest rates.
-        </h2>
+        </p>
     </header>
     <form method='GET' action='convert.php'>
         <input type='hidden' name='timeValue' value='<?= $timeValue ?>'>
@@ -35,7 +32,8 @@ require 'values.php';
         <label>Enter currency amount:
             <input type='text' name='amount' id='amount' value='<?= $amount ?>'/>
         </label>
-
+        <br>
+        <br>
         <label>Choose currency:
             <select name='current' id='current'>
                 <?php foreach ($currency_list as $code => $value): ?>
@@ -61,30 +59,30 @@ require 'values.php';
             <input type='checkbox'
                    name='round'
                    id='round'
-                   value='true' <?php if (isset($round) and $round) echo 'checked' ?>>
+                   value='true' <?php if ($round) echo 'checked' ?>
         </label>
         <br>
         <br>
-        <input type='submit' value='Convert'>
+        <input type='submit' value='Convert' >
     </form>
     <br>
     <br>
     <?php if (isset($converted)) : ?>
 
-        <div class='alert alert-info' role='alert'>
+        <div class='alert alert-info'>
             The converted amount is: <?= $converted ?>
         </div>
 
     <?php endif; ?>
     <?php if ($hasErrors) : ?>
         <div class='alert alert-danger'>
-            <ul>
                 <?php foreach ($errors as $error) : ?>
-                    <li><?= $error ?></li>
+                    <?= $error ?>
+                    <br>
                 <?php endforeach ?>
-            </ul>
         </div>
     <?php endif ?>
+</section>
 </body>
 
 </html>

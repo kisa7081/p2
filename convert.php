@@ -22,7 +22,7 @@ $errors = $form->validate(
         'amount' => 'required|numeric|min:0'
     ]);
 
-$amount = $form->get('amount'); # The amount to be converted.
+$amount = $form->get('amount'); # The amount to be converted
 
 $current = $form->get('current'); # Currency of "amount."
 
@@ -42,7 +42,7 @@ session_start(); # Start the session.
  */
 if (!$form->hasErrors) {
     # Begin by getting the stored conversion values.
-    $conversions = $_SESSION['conversions'][0];
+    $conversions = $_SESSION['conversions'];
     $converter = new \kisa7081\Converter(); #new instance of Converter.
     /*
      * Here the conversion value is taken from the array. The "current"
@@ -51,7 +51,6 @@ if (!$form->hasErrors) {
      */
     $converted = $converter->convert($conversions[$current][$target], $amount, $round);
 }
-
 /*
  * Store the various values in the session to be
  * passed to values.php.

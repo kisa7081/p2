@@ -26,11 +26,12 @@ if (isset($_SESSION['results'])) {
     $currency_list = $converter->getCurrencyList();
     $_SESSION['results'] = null;
 } else {
-    $amount = 0;
+    $amount = 0.00;
     $current = 'USD';
     $target = 0;
     $timeValue = time();
     $hasErrors = false;
+    $round = false;
     $converter = new Converter(); # Create Converter instance.
     $currency_list = $converter->getCurrencyList();
 

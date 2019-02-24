@@ -72,19 +72,15 @@ class Converter
 
     /*
      * Public method to do the actual conversion.
-     * If $round is true, the value is rounded to the
-     * nearest digit and ".00" is appended.  Otherwise,
+     * If $round is true, the value is rounded
+     * to the nearest whole number.  Otherwise,
      * it's rounded to the nearest hundredth.
      */
     public function convert($conversion, float $amount, bool $round = false)
     {
         $converted = $amount * (float)$conversion;
-        if ($round) {
-            $converted = round($converted, 0) . '.00';
-        } else {
-            $converted = round($converted, 2);
-        }
-
+        $dec_places = $round ? 0 : 2; # ternary operation
+        $converted = number_format(round($converted, 2), $dec_places);
         return $converted;
     }
 
