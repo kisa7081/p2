@@ -11,7 +11,6 @@ class MyForm extends Form
         $errors = [];
 
         foreach ($fieldsToValidate as $fields) {
-
             # Each rule is separated by a |
             $rules = explode('|', $fields[2]);
             foreach ($rules as $rule) {
@@ -30,7 +29,7 @@ class MyForm extends Form
                 # Test failed
                 if (!$test) {
                     $method = $rule . 'Message';
-                    $errors[] = 'The value for ' . $fields[1] . ' ' . $this->$method($parameter).'.';
+                    $errors[] = 'The value for ' . $fields[1] . ' ' . $this->$method($parameter) . '.';
 
                     # Only indicate one error per field
                     break;
