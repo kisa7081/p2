@@ -8,7 +8,7 @@ I referred a bit to Stack Exhange for information to figure out why particular b
 ## 3 Unique inputs
 
 1. Text input for the currency amount that is to be converted.
-2. Dropdown for source currency selection.
+2. Dropdown for current currency selection.
 3. Dropdown for target currency selection.
 4. Checkbox for user to choose rounding option.
 
