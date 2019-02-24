@@ -1,13 +1,14 @@
 <?php
 require 'helpers.php';
 require 'Form.php';
+require 'MyForm.php';
 require 'Converter.php'; # The class that does the currency conversions.
 
 use kisa7081\Converter; # Namespace declaration.
 
-use DWA\Form;
+use Kisa7081\MyForm;
 
-$form = new Form($_GET); # Using a "GET" request object
+$form = new MyForm($_GET); # Using a "GET" request object
 
 /*
  * The "timeValue" is simply used for display purposes.
@@ -19,7 +20,7 @@ $errors = $form->validate(
     [
         # The "amount" value is required and
         # must be a positive number.
-        'amount' => 'required|numeric|min:0'
+        ['amount', 'amount', 'required|numeric|min:0']
     ]);
 
 $amount = $form->get('amount'); # The amount to be converted
