@@ -29,3 +29,13 @@ I'm not aware of any divergences.  I made sure to do a "format code" in PHPStorm
 
 ## Notes for instructor
 I usually don't like to rely on a session object to store data, but I did store the conversion rates to avoid too many calls to the conversion rate web service.  Initially, the conversion rates were a property of the Converter, and I was actually storing the entire Converter object.  This was working fine at first, then I started getting a "_PHP_Incomplete_Class" object when retrieving the object from the session.  I discovered after a bit of investigation on Stack Exchange that storing objects in that way is "dodgy" (https://stackoverflow.com/questions/9402028/cache-or-store-in-session). I looked into other options such as making the class Serializable or using "memcache," but I think the best solution was to separate the currency rates array from the Converter class and just store the array.  This turned out to be much more reliable.   
+
+The conversons array has the following form:
+
+       USD MXN GBP RUB
+USD     1   #   #   #
+MXN     #   1   #   #
+GBP     #   #   1   #
+RUB     #   #   #   1
+
+To change the currency, simply change the currency code key(s).  Also, the application isn't limited to 4 currencies.  One thing I noticed though, something is wrong with the data returned when trying to use the Euro.  When the Euro is the base and is also listed as one of the targets sent to the web service, the Euro to Euro (1) conversion isn't included, so you end up with one fewer value than expected.
